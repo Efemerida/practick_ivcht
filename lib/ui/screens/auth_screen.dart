@@ -77,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => RegisterScreen()),
                   );
                 },
