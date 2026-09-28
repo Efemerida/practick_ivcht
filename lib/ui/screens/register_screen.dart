@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/entities/user.dart';
 import 'package:flutter_application_1/data/repositories/auth_repository.dart';
 import 'package:flutter_application_1/ui/screens/auth_screen.dart';
 import 'package:flutter_application_1/ui/screens/home_screen.dart';
@@ -91,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _onLoginPressed,
+                onPressed: _onRegisterPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lime.shade600,
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -123,34 +124,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _onLoginPressed() {
-    final email = _emailController.text;
-    final password = _passwordController.text;
-
+  void _onRegisterPressed() {
     if (_formKey.currentState?.validate() != true) {
       return;
     }
 
-    final user = _authRepository.login(email, password);
-    if (user != null) {
-      Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (context) => HomeScreen()));
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Ошибка"),
-          content: Text("Неверная почта или пароль"),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("OK"),
-            ),
-          ],
-        ),
-      );
-    }
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    final fio = _fioController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    _authRepository.register(User(email: email, password: password, fio: fio));
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   @override

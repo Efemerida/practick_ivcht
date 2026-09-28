@@ -1,10 +1,11 @@
 import 'package:flutter_application_1/data/entities/user.dart';
 
-List<User> users = [User(email: "123", password: "123")];
+List<User> users = [
+  User(email: "123", password: "123", fio: 'Пончик пончиков'),
+];
 
 class AuthRepository {
-  void register(String email, String password) {
-    final newUser = User(email: email, password: password);
+  void register(User newUser) {
     users.add(newUser);
   }
 
